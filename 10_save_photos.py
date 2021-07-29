@@ -34,7 +34,10 @@ class Downloader:
                                        headers=self.yd_headers)
             if post_photo.status_code == 202:
                 self.report_list.append({"file_name": photo_name, "size": photo['sizes'][-1]['type']})
-        return self.report_list
+        # Сохранение отчета
+        with open('data.json', 'w', encoding='utf-8') as report:
+            json.dump(self.report_list, report, ensure_ascii=False, indent=4)
+        pass
 
     # Получаем словарь из вконтакте для метода main_function
     def get_photos_request_to_vk(self):
